@@ -48,3 +48,4 @@ class Administrateur {
         return false;
     }
 }
+?>
