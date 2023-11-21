@@ -6,3 +6,7 @@
 
 //On requiert le fichier pour se connecter à la base de données.
 require_once (APP_ROOT .'/config/database.php');
+//On crée une classe Administrateur avec des méthodes qui vont servir à manipuler nos données.
+class Administrateur {
+    
+}
