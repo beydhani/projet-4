@@ -8,5 +8,14 @@
 require_once (APP_ROOT .'/config/database.php');
 //On crée une classe Administrateur avec des méthodes qui vont servir à manipuler nos données.
 class Administrateur {
-    
+    //On déclare des propriétés qu'on va utiliser dans nos méthodes.
+    private $conn;
+    private $table_name = "administrateur";
+    public $id;
+    public $nom_utilisateur;
+    public $mot_de_passe;
+    // Constructeur de classe.
+    public function __construct($db) {
+        $this->conn = $db; //
+    }
 }
