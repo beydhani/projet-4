@@ -61,5 +61,24 @@ class Commentaire {
         // Retourne $stmt
         return $stmt;
     }
+
+    // Méthode pour supprimer un commentaire
+    public function supprimer() {
+        // Requête SQL 
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+
+        // Préparation de la requête
+        $stmt = $this->conn->prepare($query);
+
+        // Liaison de l'id du commentaire à supprimer
+        $stmt->bindParam(1, $this->id);
+
+        // Exécution de la requête et return le booleen
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
 }
 ?>
