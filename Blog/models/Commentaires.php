@@ -80,5 +80,23 @@ class Commentaire {
 
         return false;
     }
+    // Méthode pour signaler un commentaire
+    public function signaler($id_commentaire) {
+        // Préparation de la requête SQL pour incrémenter le compteur de signalement
+        $query = "UPDATE " . $this->table_name . " SET signalé = signalé + 1 WHERE id = :id_commentaire";
+
+        // Préparation de la déclaration
+        $stmt = $this->conn->prepare($query);
+
+        // Liaison du paramètre
+        $stmt->bindParam(':id_commentaire', $id_commentaire);
+
+        // Exécution de la requête
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
 }
 ?>
