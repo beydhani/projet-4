@@ -76,7 +76,7 @@ class ArticleController {
         }
         header('Location: /Blog/router.php?action=TousArticlesAdmin');
     }
-    
+
     // Editer un article
     public function editerArticleAdmin($id_article) {
         // Crée une instance du modèle en lui passant la connexion a la database
@@ -87,6 +87,28 @@ class ArticleController {
         $article->lireUnParId(); 
         // Charge la vue
         require_once APP_ROOT . '/views/EditerArticleAdmin.php';
+    }
+
+    // Méthode qui va mettre à jour l'article édité
+    public function miseAJourArticleAdmin() {
+        // On vérifie que la méthode de requete HTTP c'est bien POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // On crée une nouvelle instance du modele et on update avec les infos qu'on a reçu.
+            $article = new Article($this->db);
+            $article->id = $_POST['id_article'];
+            $article->titre = $_POST['titre'];
+            $article->extrait = $_POST['extrait'];
+            $article->contenu = $_POST['contenu'];
+            // Si la mise à jour s'est bien effectuée on set des flash_messages success
+            if ($article->miseAJour()) {
+                $_SESSION['flash_messages']['success'] = 'Article mis à jour avec succès.';
+            } else {
+                // Sinon des flash messages error
+                $_SESSION['flash_messages']['error'] = 'Erreur lors de la mise à jour de l\'article.';
+            }
+            header('Location: /Blog/router.php?action=afficherConnexionAdmin');
+            exit;
+        }
     }
 }
 ?>
