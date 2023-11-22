@@ -1,0 +1,84 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Couleur de fond claire */
+
+}
+
+.container {
+    padding: 20px;
+}
+
+/* Styles pour les titres */
+h1, h3 {
+    color: #1674d2; /* Couleur bleue */
+}
+
+/* Styles pour les boutons */
+button.btn {
+    border-radius: 5px; /* Bords arrondis */
+    transition: box-shadow 0.3s; /* Transition pour l'ombre */
+}
+
+button.btn:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre au survol */
+}
+
+/* Styles pour les cartes de commentaires */
+.card {
+    margin-bottom: 10px;
+    border-radius: 10px; /* Bords arrondis pour les cartes */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+.card-body {
+    background-color: #e7e1e1; 
+    border-radius: 10px;
+}
+.card-body:hover {
+    background-color: #9b8b8b;
+}
+
+/* Styles pour les boutons de signalement */
+.btn-warning {
+    background-color: #ffc107; /* Couleur jaune pour le bouton de signalement */
+}
+
+.btn-warning:hover {
+    background-color: #e0a800; /* Couleur jaune plus foncée au survol */
+}
+
+/* Styles pour les messages d'erreur ou de succès */
+.flash-message {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.flash-message-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.flash-message-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.flash-message-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.blockquote-footer {
+    color: black;
+}
+.chapitre {
+    background-color: #eddcdc; 
+    border-radius: 10px;
+}
+
