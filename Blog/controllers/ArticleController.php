@@ -76,5 +76,17 @@ class ArticleController {
         }
         header('Location: /Blog/router.php?action=TousArticlesAdmin');
     }
+    
+    // Editer un article
+    public function editerArticleAdmin($id_article) {
+        // Crée une instance du modèle en lui passant la connexion a la database
+        $article = new Article($this->db);
+        // Défini l'id article dans l'instance
+        $article->id = $id_article;
+        // Appelle la méthode de modèle pour récupérer les données
+        $article->lireUnParId(); 
+        // Charge la vue
+        require_once APP_ROOT . '/views/EditerArticleAdmin.php';
+    }
 }
 ?>
