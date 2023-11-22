@@ -65,5 +65,9 @@ class UtilisateurController {
             exit;
         }
     }
+    // Méthode pour afficher le formulaire de connexion
+    public function afficherConnexionUser() {
+        include APP_ROOT.'/views/FormulaireConnexion.php';
+    }
 }
 ?>
