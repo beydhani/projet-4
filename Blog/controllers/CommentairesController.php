@@ -16,5 +16,27 @@ class CommentairesController {
         $this->commentaireModel = new Commentaire($db);
         $this->articleModel = new Article($db);
     }
+    // Méthode pour afficher tous les commentaires liés à un article par son titre
+    public function afficherCommentaires($titreArticle) {
+        // On obtient l'ID de l'article par son titre avec la méthode du modèle article
+        $idArticle = $this->articleModel->obtenirIdArticleParTitre($titreArticle);
+        if ($titreArticle) {
+            // On affecte l'ID obtenu à la propriété d'id d'article du modèle commentaire
+            $this->commentaireModel->id_article = $idArticle;
+            // On récupère tous les commentaires associés à l'article avec la méthode du modèle commentaire
+            $commentaires = $this->commentaireModel->lireParArticle();
+            // On démarre un tampon
+            ob_start();
+            // On iclut la vue
+            include APP_ROOT . '/views/AfficherCommentaires.php'; 
+            // On récupère le contenu du tampon dans content et on l'arrête
+            $content = ob_get_clean();
+            // On retourne content
+            return $content;
+        } else {
+            echo 'Article non trouvé';
+            return;
+        }
+    }
 }
 ?>
