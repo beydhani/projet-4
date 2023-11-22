@@ -155,5 +155,28 @@ class Article {
         // Sinon false par défaut
         return false;
     }
+    // Méthode pour mettre à jour un article
+    public function miseAJour() {
+        // Requete
+        $query = "UPDATE " . $this->table_name . " SET titre = :titre, extrait = :extrait, contenu = :contenu WHERE id = :id";
+        // Preparation
+        $stmt = $this->conn->prepare($query);
+        // Nettoyage
+        $this->titre = htmlspecialchars(strip_tags($this->titre));
+        $this->extrait = htmlspecialchars(strip_tags($this->extrait));
+        $this->contenu = htmlspecialchars(strip_tags($this->contenu));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        // Liaison
+        $stmt->bindParam(':titre', $this->titre);
+        $stmt->bindParam(':extrait', $this->extrait);
+        $stmt->bindParam(':contenu', $this->contenu);
+        $stmt->bindParam(':id', $this->id);
+        // Si l'execution réussit on retourne true sinon false.
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
 }
 ?>
