@@ -133,5 +133,27 @@ class Article {
         }
 
     }
+    // Méthode pour créer un article.
+    public function creerArticle() {
+        // Requete avec plein de placeholders
+        $query = "INSERT INTO ". $this->table_name ." (titre, extrait, contenu, date_publication) VALUES (:titre, :extrait, :contenu, :date_publication)";
+        // Preparation
+        $stmt = $this->conn->prepare($query);
+        // Nettoyage et liaison
+        $this->titre = htmlspecialchars(strip_tags($this->titre));
+        $this->extrait = htmlspecialchars(strip_tags($this->extrait));
+        $this->contenu = htmlspecialchars(strip_tags($this->contenu));
+        $this->date_publication = date('Y-m-d H:i:s');
+        $stmt->bindParam(':titre', $this->titre);
+        $stmt->bindParam(':extrait', $this->extrait);
+        $stmt->bindParam(':contenu', $this->contenu);
+        $stmt->bindParam(':date_publication', $this->date_publication);
+        // Si la requete s'execute on retourne true
+        if ($stmt->execute()) {
+            return true;
+        }
+        // Sinon false par défaut
+        return false;
+    }
 }
 ?>
