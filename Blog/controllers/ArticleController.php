@@ -46,5 +46,23 @@ class ArticleController {
         $article = $this->articleModel->obtenirIdArticleParTitre($titre);
         require APP_ROOT . '/views/ArticleUniqueAdmin.php';
     }
+    // Créer un article
+    public function creerArticle() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $article = new Article($this->db);
+            $article->titre = $_POST['titre'];
+            $article->extrait = $_POST['extrait'];
+            $article->contenu = $_POST['contenu'];
+            if ($article->creerArticle()) {
+                 $_SESSION['flash_messages']['success'] = 'Article créé avec succès.';
+                 header('Location: /Blog/router.php?action=afficherCreerArticleAdmin');
+                exit;
+            } else {
+                $_SESSION['flash_messages']['error'] = 'Il y a eu une erreur lors de la création de l\'article.';
+                 header('Location: /Blog/router.php?action=afficherCreerArticleAdmin');
+                exit;
+            }
+        }
+    }
 }
 ?>
