@@ -70,5 +70,37 @@ class CommentairesController {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
+    // Méthode pour signaler un commentaire
+    public function signalerCommentaire() {
+        // On démarre une nouvelle session si y'en a pas déjà
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        // On vérifie si l'utilisateur est connecté et si l'id du commentaire a été envoyé
+        if (isset($_POST['id_commentaire']) && isset($_SESSION['nom_utilisateur'])) {
+            // On récupère l'id du commentaire et on crée un identifiant pour le signalement
+            $id_commentaire = $_POST['id_commentaire'];
+            $commentSignalId = 'signal-' . $id_commentaire; 
+            // On vérifie si le commentaire a pas encore été signalé 
+            if (!isset($_SESSION['commentaires_signales'][$commentSignalId])) {
+                // S'il a pas encore été signalé on appelle la méthode signaler du modèle
+                // Si c'est bon on set les flash_messages success
+                if ($this->commentaireModel->signaler($id_commentaire)) {
+                    $_SESSION['flash_messages']['success'] = "Commentaire signalé avec succès.";
+                } else {
+                    // Sinon on set les flash messages error
+                    $_SESSION['flash_messages']['error'] = "Erreur lors du signalement du commentaire.";
+                }
+                // On set le booléen à true pour indiquer qu'il a été signalé
+                $_SESSION['commentaires_signales'][$commentSignalId] = true;
+            } else {
+                // S'il a déjà été signalé on en informe l'user
+                $_SESSION['flash_messages']['info'] = "Vous avez déjà signalé ce commentaire.";
+            }
+        }
+        // On redirige 
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
 }
 ?>
