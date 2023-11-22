@@ -53,5 +53,20 @@ class Utilisateur {
         return false;
     
     }
+    // Méthode pour vérifier si l'email existe déjà
+    public function emailExiste() {
+        // Requête pour vérifier si l'email existe déjà
+        $query = "SELECT id FROM " . $this->table_name . " WHERE email = :email LIMIT 1";
+    
+        // Préparation de la requête
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->execute();
+        // Si l'objet a plus de 0 row l'email existe donc on retourne true
+        if ($stmt->rowCount() > 0) {
+            return true;
+        }
+        return false;
+    }
 }
 ?>
