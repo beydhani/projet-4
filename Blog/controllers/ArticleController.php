@@ -38,5 +38,13 @@ class ArticleController {
         $article = $this->articleModel->obtenirIdArticleParTitre($titre);
         require APP_ROOT . '/views/ArticleUnique.php';
     }
+    public function articleUniqueAdmin($titre) {
+        $this->articleModel->lireUn($titre); 
+        $contenuArticle = $this->articleModel;   
+        $commentairesController = new CommentairesController();
+        $commentairesContent = $commentairesController->afficherCommentairesAdmin($titre);
+        $article = $this->articleModel->obtenirIdArticleParTitre($titre);
+        require APP_ROOT . '/views/ArticleUniqueAdmin.php';
+    }
 }
 ?>
