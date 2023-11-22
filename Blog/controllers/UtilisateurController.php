@@ -69,5 +69,9 @@ class UtilisateurController {
     public function afficherConnexionUser() {
         include APP_ROOT.'/views/FormulaireConnexion.php';
     }
+    // Méthode pour afficher le formulaire d'inscription
+    public function afficherInscriptionUser() {
+        include APP_ROOT.'/views/FormulaireInscription.php';
+    }
 }
 ?>
