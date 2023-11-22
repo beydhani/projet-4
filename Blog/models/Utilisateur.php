@@ -68,5 +68,22 @@ class Utilisateur {
         }
         return false;
     }
+    // Méthode pour vérifier si le nom d'utilisateur existe déjà
+    // Même fonctionnement
+    public function nomUtilisateurExiste() {
+        // Requête pour vérifier si le nom d'utilisateur existe déjà
+        $query = "SELECT id FROM " . $this->table_name . " WHERE nom_utilisateur = :nom_utilisateur LIMIT 1";
+    
+        // Préparation de la requête
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':nom_utilisateur', $this->nom_utilisateur);
+        $stmt->execute();
+    
+        if ($stmt->rowCount() > 0) {
+            // Le nom d'utilisateur existe déjà
+            return true;
+        }
+        return false;
+    }
 }
 ?>
