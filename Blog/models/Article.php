@@ -108,5 +108,30 @@ class Article {
     
         return false;
     }
+    // Méthode pour obtenir l'id d'un article par son titre
+    public function obtenirIdArticleParTitre($titre) {
+        // Requete avec placeholder
+        $query = "SELECT id FROM " . $this->table_name . " WHERE titre = :titre LIMIT 1";
+        // Preparation
+        $stmt = $this->conn->prepare($query);
+        // Nettoyage
+        $titre = htmlspecialchars(strip_tags($titre));
+        // Liaison
+        $stmt->bindParam(':titre', $titre);
+        // Execution
+        $stmt->execute();
+
+        // Si la requete retourne un objet avec 1 row
+        if ($stmt->rowCount() == 1) {
+            // Récupération
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            // On retourne l'id
+            return $row['id'];
+        } else {
+            // Sinon on retourne rien.
+            return null; 
+        }
+
+    }
 }
 ?>
