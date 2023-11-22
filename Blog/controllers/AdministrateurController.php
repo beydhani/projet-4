@@ -40,5 +40,11 @@ class AdministrateurController {
             header('Location:  /Blog/views/erreurConnexionAdmin.php');
         }
     }
+    // Méthode pour afficher le formulaire de connexion d'admin.
+    //  C'est pour passer toujours par le routeur
+    public function afficherConnexionAdmin() {
+        // On inclus cette vue.
+        include APP_ROOT.'/views/FormulaireConnexionAdmin.php';
+    }
 }
 ?>
