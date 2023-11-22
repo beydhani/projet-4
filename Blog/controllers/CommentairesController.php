@@ -54,5 +54,21 @@ class CommentairesController {
             return;
         }
     }
+    // Méthode pour écrire un nouveau commentaire
+    public function ecrireCommentaire() {
+        // On assigne aux propriétés les données reçues
+        $this->commentaireModel->id_article = $_POST['id_article'];
+        $this->commentaireModel->id_utilisateur = $_POST['id_utilisateur']; 
+        $this->commentaireModel->contenu = $_POST['contenu'];
+        // On setup des flash_messages
+        if ($this->commentaireModel->ajouter()) {
+            $_SESSION['flash_messages']['success'] = "Commentaire ajouté avec succès.";
+        } else {
+            $_SESSION['flash_messages']['error'] = "Erreur lors de l'ajout du commentaire.";
+        }
+        // On redirige vers la page de l'article avec $_SERVER['HTTP_REFERER']
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
 }
 ?>
