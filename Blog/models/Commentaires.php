@@ -43,5 +43,23 @@ class Commentaire {
 
         return false;
     }
+
+    // Méthode pour lire tous les commentaires d'un article
+    public function lireParArticle() {
+        // Requête
+        $query = "SELECT c.id, c.id_article, c.contenu, c.date_publication, c.signalé, u.nom_utilisateur 
+        FROM " . $this->table_name . " AS c
+        JOIN utilisateurs AS u ON c.id_utilisateur = u.id
+        WHERE c.id_article = ? 
+        ORDER BY c.signalé DESC";
+        // Préparation de la requête et liaison
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $this->id_article);
+
+        // Exécution de la requête
+        $stmt->execute();
+        // Retourne $stmt
+        return $stmt;
+    }
 }
 ?>
