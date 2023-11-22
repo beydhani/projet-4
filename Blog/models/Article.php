@@ -60,5 +60,28 @@ class Article {
         $this->contenu = $row['contenu'];
         $this->date_publication = $row['date_publication'];
     }
+    // Méthode pour lire un article par son ID
+    public function lireUnParId() {
+        // Requete
+        $query = "SELECT id, titre, extrait, contenu, date_publication FROM " . $this->table_name . " WHERE id = :id LIMIT 0,1";
+    
+        // Préparation
+        $stmt = $this->conn->prepare($query);
+    
+        // On lie l'id avec le placeholder
+        $stmt->bindParam(':id', $this->id);
+    
+        // Execution
+        $stmt->execute();
+        // Récupération
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        // Assignation
+        $this->id = $row['id'];
+        $this->titre = $row['titre'];
+        $this->extrait = $row['extrait'];
+        $this->contenu = $row['contenu'];
+        $this->date_publication = $row['date_publication'];
+    }
 }
 ?>
