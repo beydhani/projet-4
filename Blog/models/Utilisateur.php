@@ -85,5 +85,34 @@ class Utilisateur {
         }
         return false;
     }
+    // Méthode pour vérifier la connexion d'un utilisateur
+    public function connecter() {
+        // Requête SQL pour vérifier les informations de l'utilisateur
+        $query = "SELECT id, nom_utilisateur, mot_de_passe FROM " . $this->table_name . " WHERE email = :email LIMIT 0,1";
+
+        // Préparation de la requête
+        $stmt = $this->conn->prepare($query);
+
+        // Nettoyage et liaison du paramètre email
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $stmt->bindParam(':email', $this->email);
+
+        // Exécution de la requête
+        $stmt->execute();
+
+        // Récupération de la ligne de résultat
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Vérification du mot de passe
+        if (password_verify($this->mot_de_passe, $row['mot_de_passe'])) {
+            // Assignation des valeurs aux propriétés de l'objet
+            $this->id = $row['id'];
+            $this->nom_utilisateur = $row['nom_utilisateur'];
+            
+            return true;
+        }
+
+        return false;
+    }
 }
 ?>
