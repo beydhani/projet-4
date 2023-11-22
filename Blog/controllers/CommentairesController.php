@@ -112,5 +112,23 @@ class CommentairesController {
         // On utilise la méthode du modèle
         return $this->commentaireModel->supprimerParArticle($id_article);
     }
+    // Méthode pour supprimer un commentaire 
+    public function supprimerCommentaire() {
+        // On vérifie qu'on a l'id du commentaire envoyé
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commentaire'])) {
+            // On assigne la valeur dans le modèle
+            $id_commentaire = $_POST['id_commentaire'];
+            $this->commentaireModel->id = $id_commentaire;
+            // On execute la méthode de modèle et on met des flash_messages en fonction du résultat.
+            if ($this->commentaireModel->supprimer()) {
+                $_SESSION['flash_messages']['success'] = 'Commentaire supprimé avec succès.';
+            } else {
+                $_SESSION['flash_messages']['error'] = 'Erreur lors de la suppression du commentaire.';
+            }
+            // On renvoie vers la même page.
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit;
+        }
+    }
 }
 ?>
