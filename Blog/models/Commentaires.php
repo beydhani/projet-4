@@ -98,5 +98,18 @@ class Commentaire {
 
         return false;
     }
+    // Supprimer les commentaires d'un article
+    public function supprimerParArticle($id_article) {
+        // Requête
+        $query = "DELETE FROM " . $this->table_name . " WHERE id_article = :id_article";
+        // Préparation et liaison
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id_article', $id_article, PDO::PARAM_INT);
+        // Execution et return le booleen
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
 }
 ?>
