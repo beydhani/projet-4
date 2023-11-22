@@ -102,5 +102,15 @@ class CommentairesController {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
+    // Méthode pour supprimer un commentaire par article
+    public function supprimerCommentairesParArticle($id_article) {
+        // On vérifie si l'id_article est fourni
+        if (!$id_article) {
+            echo ("id_article non fourni");
+            return false;
+        }
+        // On utilise la méthode du modèle
+        return $this->commentaireModel->supprimerParArticle($id_article);
+    }
 }
 ?>
