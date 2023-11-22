@@ -16,5 +16,42 @@ class Utilisateur {
     public function __construct($db) {
         $this->conn = $db;
     }
+    // Méthode pour inscrire un nouvel utilisateur
+    public function inscrire() {
+        // Vérifier si l'email existe déjà
+        if ($this->emailExiste()) {
+            return false;
+        }
+    
+        // Vérifier si le nom d'utilisateur existe déjà
+        if ($this->nomUtilisateurExiste()) {
+            return false;
+        }
+    
+        // Requête SQL pour insérer un nouvel utilisateur
+        $query = "INSERT INTO " . $this->table_name . " SET nom_utilisateur=:nom_utilisateur, email=:email, mot_de_passe=:mot_de_passe";
+
+        // Préparation de la requête
+        $stmt = $this->conn->prepare($query);
+
+        // Nettoyage des données
+        $this->nom_utilisateur = htmlspecialchars(strip_tags($this->nom_utilisateur));
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->mot_de_passe = htmlspecialchars(strip_tags($this->mot_de_passe));
+        //Hashage du mot de passe 
+        $this->mot_de_passe = password_hash($this->mot_de_passe, PASSWORD_DEFAULT);
+        // Liaison des paramètres
+        $stmt->bindParam(':nom_utilisateur', $this->nom_utilisateur);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':mot_de_passe', $this->mot_de_passe);
+
+        // Exécution de la requête
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    
+    }
 }
 ?>
