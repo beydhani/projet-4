@@ -83,5 +83,30 @@ class Article {
         $this->contenu = $row['contenu'];
         $this->date_publication = $row['date_publication'];
     }
+    // Méthode pour supprimer un article.
+    public function supprimer($id_article) {
+        // Si $id_article n'est pas fourni on retourne false
+        if (!$id_article) {
+            return false;
+        }
+    
+        // Requete
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+    
+        // Preparation
+        $stmt = $this->conn->prepare($query);
+    
+        // Nettoyage de $id_article
+        $id_article = htmlspecialchars(strip_tags($id_article));
+        // Liaison au placeholder
+        $stmt->bindParam(':id', $id_article, PDO::PARAM_INT);
+    
+        // if else pour le booléen d'execution de la requete
+        if ($stmt->execute()) {
+            return true;
+        }
+    
+        return false;
+    }
 }
 ?>
