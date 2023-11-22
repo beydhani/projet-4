@@ -64,5 +64,17 @@ class ArticleController {
             }
         }
     }
+    // Supprimer un article 
+    public function supprimerArticleAdmin($id_article) {
+        // Si le modèle retourne true
+        if ($this->articleModel->supprimer($id_article)) {
+            // On set les flash_messages de success avec la superglobale SESSION
+            $_SESSION['flash_messages']['success'] = 'Article supprimé avec succès.';
+        } else {
+            // On set les flash_messages d'erreur avec la superglobale SESSION
+            $_SESSION['flash_messages']['error'] = 'Erreur lors de la suppression de l\'article.';
+        }
+        header('Location: /Blog/router.php?action=TousArticlesAdmin');
+    }
 }
 ?>
