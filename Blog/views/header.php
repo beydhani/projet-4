@@ -6,7 +6,9 @@
 <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="/Blog/">Logo</a>
+                <a class="navbar-brand" href="/Blog/">
+                <img src="/Blog/public/logo.png" alt="Logo" style="height: 140px; border-radius: 50%;">
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
