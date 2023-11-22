@@ -13,5 +13,10 @@ class Commentaire {
     public $contenu;
     public $date_publication;
     public $signale;
+
+    // Constructeur avec $db comme connexion à la base de données
+    public function __construct($db) {
+        $this->conn = $db;
+    }
 }
 ?>
