@@ -42,5 +42,28 @@ class UtilisateurController {
             header('Location: /Blog/router.php?action=afficherInscriptionUser');
         }
     }
+    // Méthode pour connecter l'utilisateur
+    public function connecter() {
+        // On assigne les données reçues aux propriétés
+        $this->utilisateurModel->email = $_POST['email'];
+        $this->utilisateurModel->mot_de_passe = $_POST['mot_de_passe'];
+        // Démarre une session
+        session_start();
+        // Si la méthode du modèle retourne true
+        if ($this->utilisateurModel->connecter()) {
+            // On enregistre tout ça avec SESSION
+            $_SESSION['success'] = "Vous êtes connecté en tant que ". $this->utilisateurModel->nom_utilisateur;
+            $_SESSION['id_utilisateur'] = $this->utilisateurModel->id;
+            $_SESSION['nom_utilisateur'] = $this->utilisateurModel->nom_utilisateur;
+            // On renvoie vers le blog
+            header('Location: /Blog/');
+            exit;
+        } else {
+            // Sinon on met un message d'erreur et on renvoie vers le formulaire de connexion
+            $_SESSION['error'] = "Votre e-mail et/ou mot de passe sont incorrects.";
+            header('Location: /Blog/router.php?action=afficherConnexionUser');
+            exit;
+        }
+    }
 }
 ?>
