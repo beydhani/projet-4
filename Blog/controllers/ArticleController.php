@@ -26,5 +26,9 @@ class ArticleController {
         $contenu = ob_get_clean();
         echo $contenu;
     }
+    public function tousArticlesAdmin() {
+        $articles = $this->articleModel->lire(); 
+        include APP_ROOT.'/views/TousArticlesAdmin.php'; 
+    }
 }
 ?>
