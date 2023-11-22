@@ -38,5 +38,21 @@ class CommentairesController {
             return;
         }
     }
+    // Méthode pour afficher les commentaires admin
+    // Même fonctionnement que la précédente mais une vue différente
+    public function afficherCommentairesAdmin($titreArticle) {
+        $idArticle = $this->articleModel->obtenirIdArticleParTitre($titreArticle);
+        if ($idArticle) {
+            $this->commentaireModel->id_article = $idArticle;
+            $commentaires = $this->commentaireModel->lireParArticle($idArticle);
+            ob_start();
+            include APP_ROOT.'/views/AfficherCommentairesAdmin.php';
+            $content = ob_get_clean();
+            return $content;
+        } else {
+            echo 'Article non trouvé.';
+            return;
+        }
+    }
 }
 ?>
