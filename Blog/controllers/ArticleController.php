@@ -110,5 +110,9 @@ class ArticleController {
             exit;
         }
     }
+    // Méthode pour afficher l'interface de création d'article.
+    public function afficherCreerArticleAdmin() {
+        require_once APP_ROOT . '/views/interfaceAdmin.php';
+    }
 }
 ?>
