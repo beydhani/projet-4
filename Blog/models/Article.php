@@ -34,5 +34,31 @@ class Article {
         // On retourne l'objet PDO $stmt
         return $stmt;
     }
+    // Méthode pour lire un seul article par son titre
+    public function lireUn($titre) {
+        // La requète avec un placeholder pour le titre
+        $query = "SELECT id, titre, extrait, contenu, date_publication FROM " . $this->table_name . " WHERE titre = ? LIMIT 0,1";
+
+        // Préparation de la requète avec PDO (méthode prepare de pdo)
+        $stmt = $this->conn->prepare($query);
+        // Nettoyage du titre avec la méthode htmlspecialchars pour éviter les injections SQL et les failles XSS et striptags
+        $titre = htmlspecialchars(strip_tags($titre));
+
+        // Liaison du titre nettoyé au placeholder
+        $stmt->bindParam(1, $titre);
+
+        //Execution
+        $stmt->execute();
+
+        // On récupere le resultat sous forme de tableau associatif
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // On assigne a chaque propriété la donnée correspondante.
+        $this->id = $row['id'];
+        $this->titre = $row['titre'];
+        $this->extrait = $row['extrait'];
+        $this->contenu = $row['contenu'];
+        $this->date_publication = $row['date_publication'];
+    }
 }
 ?>
