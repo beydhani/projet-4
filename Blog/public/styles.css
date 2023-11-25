@@ -1,12 +1,16 @@
 /* Styles généraux */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa; /* Couleur de fond claire */
-
+    /*background-color: #f8f9fa;*/
+    background-image: url('background_img.png'); 
+    background-size: 200px 200px; 
+    background-repeat: repeat; 
 }
 
 .container {
     padding: 20px;
+    background-color: white;
+    border-radius: 10px;
 }
 
 /* Styles pour les titres */
