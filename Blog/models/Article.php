@@ -142,7 +142,7 @@ class Article {
         // Nettoyage et liaison
         $this->titre = htmlspecialchars(strip_tags($this->titre));
         $this->extrait = htmlspecialchars(strip_tags($this->extrait));
-        $this->contenu = htmlspecialchars(strip_tags($this->contenu));
+        $this->contenu = $this->contenu;
         $this->date_publication = date('Y-m-d H:i:s');
         $stmt->bindParam(':titre', $this->titre);
         $stmt->bindParam(':extrait', $this->extrait);
@@ -164,7 +164,7 @@ class Article {
         // Nettoyage
         $this->titre = htmlspecialchars(strip_tags($this->titre));
         $this->extrait = htmlspecialchars(strip_tags($this->extrait));
-        $this->contenu = htmlspecialchars(strip_tags($this->contenu));
+        $this->contenu = $this->contenu;
         $this->id = htmlspecialchars(strip_tags($this->id));
         // Liaison
         $stmt->bindParam(':titre', $this->titre);
