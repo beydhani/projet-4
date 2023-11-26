@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-8 mx-auto text-center chapitre">
                 <h1 class="mt-4"><?= htmlspecialchars($this->articleModel->titre) ?></h1>
-                <p class="lead"><?= nl2br(htmlspecialchars($this->articleModel->contenu)) ?></p>
+                <p class="lead"><?= nl2br($this->articleModel->contenu) ?></p>
             </div>
         </div>
         <?php
