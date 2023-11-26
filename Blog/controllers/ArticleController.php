@@ -102,11 +102,13 @@ class ArticleController {
             // Si la mise à jour s'est bien effectuée on set des flash_messages success
             if ($article->miseAJour()) {
                 $_SESSION['flash_messages']['success'] = 'Article mis à jour avec succès.';
+                header('Location: /Blog/router.php?action=TousArticlesAdmin');
             } else {
                 // Sinon des flash messages error
                 $_SESSION['flash_messages']['error'] = 'Erreur lors de la mise à jour de l\'article.';
+                header('Location: /Blog/router.php?action=TousArticlesAdmin');
             }
-            header('Location: /Blog/router.php?action=afficherConnexionAdmin');
+            
             exit;
         }
     }
